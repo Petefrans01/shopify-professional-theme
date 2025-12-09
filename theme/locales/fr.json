@@ -13,7 +13,8 @@
     },
     "404": {
       "title": "404 Page non trouvée",
-      "subtext_html": "La page que vous demandez n'existe pas."
+      "subtext_html": "La page que vous demandez n'existe pas.",
+      "link": "Retour à l'accueil"
     },
     "password_page": {
       "opening_soon": "Bientôt disponible",

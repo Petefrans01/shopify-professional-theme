@@ -1,0 +1,17 @@
+{
+  "current": {
+    "colors_text": "#000000",
+    "colors_background": "#FFFFFF",
+    "color_primary": "#000000",
+    "color_secondary": "#666666",
+    "type_header_font": "helvetica_n7",
+    "type_body_font": "helvetica_n4",
+    "page_width": 1200,
+    "products_per_row": 4,
+    "show_vendor": false,
+    "show_quick_add": true,
+    "enable_image_hover": true,
+    "cart_type": "drawer",
+    "enable_cart_notes": true
+  }
+}

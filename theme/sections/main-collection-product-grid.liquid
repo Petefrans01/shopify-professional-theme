@@ -1,0 +1,157 @@
+{% comment %}
+  Section: Grille de collection
+{% endcomment %}
+
+<div class="main-collection" data-section-id="{{ section.id }}">
+  <div class="main-collection__wrapper page-width">
+    <div class="collection-header">
+      <h1>{{ collection.title }}</h1>
+      
+      {% if collection.description != blank %}
+        <div class="collection-description">
+          {{ collection.description }}
+        </div>
+      {% endif %}
+
+      <div class="collection-toolbar">
+        {% if section.settings.enable_filtering %}
+          <button class="collection-toolbar__filter-toggle">
+            Filtrer
+          </button>
+        {% endif %}
+
+        {% if section.settings.enable_sorting %}
+          <div class="collection-toolbar__sort">
+            <label for="sort-by">Trier par:</label>
+            <select id="sort-by" name="sort_by">
+              <option value="manual">En vedette</option>
+              <option value="best-selling">Meilleures ventes</option>
+              <option value="title-ascending">A-Z</option>
+              <option value="title-descending">Z-A</option>
+              <option value="price-ascending">Prix croissant</option>
+              <option value="price-descending">Prix décroissant</option>
+              <option value="created-ascending">Ancien au récent</option>
+              <option value="created-descending">Récent au ancien</option>
+            </select>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collection-content">
+      {% if section.settings.enable_filtering %}
+        <div class="collection-filters">
+          <h3>Filtres</h3>
+          
+          {% for filter in collection.filters %}
+            <div class="collection-filter">
+              <h4>{{ filter.label }}</h4>
+              
+              {% case filter.type %}
+                {% when 'price_range' %}
+                  <div class="price-range-filter">
+                    <input type="range" min="{{ filter.range_min }}" max="{{ filter.range_max }}">
+                  </div>
+                
+                {% else %}
+                  {% for value in filter.values %}
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="{{ filter.param_name }}"
+                        value="{{ value.value }}"
+                        {% if value.active %}checked{% endif %}
+                      >
+                      {{ value.label }} ({{ value.count }})
+                    </label>
+                  {% endfor %}
+              {% endcase %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="collection-products">
+        <div class="product-grid">
+          {% for product in collection.products %}
+            <div class="product-card">
+              <a href="{{ product.url }}" class="product-card__link">
+                {% if product.featured_image %}
+                  <div class="product-card__image">
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {% endif %}
+
+                <div class="product-card__info">
+                  <h3 class="product-card__title">{{ product.title }}</h3>
+                  
+                  <div class="product-card__price">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                      <span class="price-sale">{{ product.price | money }}</span>
+                    {% else %}
+                      <span class="price-regular">{{ product.price | money }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="pagination__prev">Précédent</a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {% else %}
+                <span class="pagination__current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="pagination__next">Suivant</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Grille de collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 50,
+      "step": 4,
+      "label": "Produits par page",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Activer les filtres",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Activer le tri",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,173 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Passer au contenu",
+      "refresh_page": "Le choix d'une sélection entraîne l'actualisation de la page entière.",
+      "link_messages": {
+        "new_window": "S'ouvre dans une nouvelle fenêtre."
+      }
+    },
+    "meta": {
+      "tags": "Tagué \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "404 Page non trouvée",
+      "subtext_html": "La page que vous demandez n'existe pas."
+    },
+    "password_page": {
+      "opening_soon": "Bientôt disponible",
+      "admin_link_html": "Êtes-vous le propriétaire de la boutique ? <a href=\"/admin\" class=\"text-link\">Connectez-vous ici</a>",
+      "password_link": "Entrer avec un mot de passe"
+    },
+    "newsletter_form": {
+      "email_placeholder": "Votre email",
+      "submit": "S'inscrire",
+      "confirmation": "Merci de votre inscription"
+    },
+    "search": {
+      "title": "Rechercher",
+      "placeholder": "Rechercher des produits",
+      "submit": "Rechercher",
+      "no_results": "Aucun résultat trouvé",
+      "results_count": {
+        "one": "{{ count }} résultat",
+        "other": "{{ count }} résultats"
+      }
+    },
+    "footer": {
+      "all_rights_reserved": "Tous droits réservés"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "unavailable": "Non disponible",
+      "quantity": "Quantité",
+      "price": {
+        "from_price_html": "À partir de {{ price }}",
+        "regular_price": "Prix régulier",
+        "sale_price": "Prix réduit"
+      },
+      "vendor": "Vendeur",
+      "description": "Description",
+      "on_sale": "En solde",
+      "product_variants": "Variantes du produit",
+      "media": {
+        "open_featured_media": "Ouvrir le média principal",
+        "open_media": "Ouvrir le média {{ index }}",
+        "play_model": "Lire la visionneuse 3D",
+        "play_video": "Lire la vidéo"
+      },
+      "share": "Partager ce produit",
+      "view_full_details": "Afficher tous les détails"
+    },
+    "general": {
+      "view_all": "Voir tout",
+      "previous": "Précédent",
+      "next": "Suivant"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "no_matches": "Désolé, aucun produit ne correspond à votre recherche.",
+      "link_title": "Parcourir notre collection {{ title }}",
+      "items_with_count": {
+        "one": "{{ count }} article",
+        "other": "{{ count }} articles"
+      }
+    },
+    "sorting": {
+      "title": "Trier par",
+      "featured": "En vedette",
+      "best_selling": "Meilleures ventes",
+      "az": "Alphabétique, A-Z",
+      "za": "Alphabétique, Z-A",
+      "price_ascending": "Prix, croissant",
+      "price_descending": "Prix, décroissant",
+      "date_ascending": "Date, ancienne à récente",
+      "date_descending": "Date, récente à ancienne"
+    },
+    "filters": {
+      "title": "Filtrer",
+      "apply": "Appliquer",
+      "clear": "Effacer",
+      "clear_all": "Tout effacer",
+      "from": "De",
+      "to": "À",
+      "filter_button": "Filtrer",
+      "active_filters": "Filtres actifs:",
+      "remove": "Supprimer"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Panier",
+      "remove": "Retirer",
+      "note": "Instructions spéciales",
+      "subtotal": "Sous-total",
+      "taxes_and_shipping_at_checkout": "Taxes et frais de livraison calculés à la caisse",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes et <a href=\"{{ link }}\">frais de livraison</a> calculés à la caisse",
+      "taxes_included_but_shipping_at_checkout": "Taxes incluses et frais de livraison calculés à la caisse",
+      "taxes_included_and_shipping_policy_html": "Taxes incluses. <a href=\"{{ link }}\">Frais de livraison</a> calculés à la caisse.",
+      "update": "Mettre à jour",
+      "checkout": "Commander",
+      "empty": "Votre panier est vide.",
+      "continue_shopping": "Continuer mes achats",
+      "close_cart": "Fermer le panier",
+      "savings_html": "Vous économisez {{ price }}",
+      "reduce_quantity": "Réduire la quantité de {{ title }}",
+      "increase_quantity": "Augmenter la quantité de {{ title }}"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Mon compte",
+      "details": "Détails du compte",
+      "view_addresses": "Voir les adresses",
+      "return": "Retour aux détails du compte"
+    },
+    "login": {
+      "title": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe",
+      "forgot_password": "Mot de passe oublié ?",
+      "sign_in": "Se connecter",
+      "new_customer": "Nouveau client"
+    },
+    "orders": {
+      "title": "Historique des commandes",
+      "order_number": "Commande",
+      "date": "Date",
+      "payment_status": "Statut du paiement",
+      "fulfillment_status": "Statut de livraison",
+      "total": "Total",
+      "none": "Vous n'avez pas encore passé de commande."
+    },
+    "addresses": {
+      "title": "Adresses",
+      "default": "Par défaut",
+      "add_new": "Ajouter une nouvelle adresse",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Voici votre carte-cadeau de {{ value }} pour {{ shop }} !",
+      "subtext": "Votre carte-cadeau",
+      "disabled": "Désactivée",
+      "expired": "Expirée le {{ expiry }}",
+      "active": "Expire le {{ expiry }}",
+      "redeem": "Utilisez ce code lors du paiement pour utiliser votre carte-cadeau",
+      "shop_link": "Commencer à magasiner",
+      "print": "Imprimer",
+      "add_to_apple_wallet": "Ajouter à Apple Wallet"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%d %B, %Y"
+  }
+}

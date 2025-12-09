@@ -1,0 +1,182 @@
+{% comment %}
+  Section: Footer
+{% endcomment %}
+
+<footer class="footer" data-section-id="{{ section.id }}">
+  <div class="footer__wrapper page-width">
+    <div class="footer__content">
+      <div class="footer__column">
+        <h3 class="footer__heading">{{ section.settings.column_1_heading }}</h3>
+        <div class="footer__menu">
+          <ul>
+            {% for link in section.settings.menu_1.links %}
+              <li>
+                <a href="{{ link.url }}" class="footer__link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__column">
+        <h3 class="footer__heading">{{ section.settings.column_2_heading }}</h3>
+        <div class="footer__menu">
+          <ul>
+            {% for link in section.settings.menu_2.links %}
+              <li>
+                <a href="{{ link.url }}" class="footer__link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__column">
+        <h3 class="footer__heading">{{ section.settings.newsletter_heading }}</h3>
+        <p>{{ section.settings.newsletter_text }}</p>
+        
+        {% form 'customer' %}
+          <div class="footer__newsletter">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+              required
+              class="footer__newsletter-input"
+            >
+            <button type="submit" class="footer__newsletter-button">
+              {{ 'general.newsletter_form.submit' | t }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <div class="footer__column">
+        <h3 class="footer__heading">{{ section.settings.social_heading }}</h3>
+        <div class="footer__social">
+          {% if section.settings.social_facebook != blank %}
+            <a href="{{ section.settings.social_facebook }}" target="_blank" class="footer__social-link">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% if section.settings.social_instagram != blank %}
+            <a href="{{ section.settings.social_instagram }}" target="_blank" class="footer__social-link">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% if section.settings.social_twitter != blank %}
+            <a href="{{ section.settings.social_twitter }}" target="_blank" class="footer__social-link">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__payment">
+        {% for payment_type in shop.enabled_payment_types %}
+          {{ payment_type | payment_type_svg_tag: class: 'footer__payment-icon' }}
+        {% endfor %}
+      </div>
+      
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ 'general.footer.all_rights_reserved' | t }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colonne 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_heading",
+      "label": "Titre",
+      "default": "À propos"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu",
+      "default": "footer"
+    },
+    {
+      "type": "header",
+      "content": "Colonne 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_heading",
+      "label": "Titre",
+      "default": "Service client"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Titre",
+      "default": "Newsletter"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Texte",
+      "default": "Inscrivez-vous pour recevoir nos offres exclusives"
+    },
+    {
+      "type": "header",
+      "content": "Réseaux sociaux"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Titre",
+      "default": "Suivez-nous"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter"
+    }
+  ]
+}
+{% endschema %}

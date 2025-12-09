@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Bienvenue dans notre boutique",
+        "subheading": "Découvrez nos produits exceptionnels",
+        "button_label": "Acheter maintenant",
+        "button_link": "/collections/all"
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Produits en vedette",
+        "collection": "frontpage"
+      }
+    },
+    "text-with-image": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Notre histoire",
+        "text": "<p>Découvrez qui nous sommes et ce qui nous rend uniques.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-collection",
+    "text-with-image"
+  ]
+}

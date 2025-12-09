@@ -1,0 +1,121 @@
+{% comment %}
+  Section: Collection en vedette
+{% endcomment %}
+
+<div class="featured-collection" data-section-id="{{ section.id }}">
+  <div class="featured-collection__wrapper page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="featured-collection__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% assign collection = collections[section.settings.collection] %}
+    
+    {% if collection != blank and collection.products_count > 0 %}
+      <div class="featured-collection__grid">
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          <div class="product-card">
+            <a href="{{ product.url }}" class="product-card__link">
+              {% if product.featured_image %}
+                <div class="product-card__image">
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    srcset="{{ product.featured_image | image_url: width: 300 }} 300w,
+                            {{ product.featured_image | image_url: width: 600 }} 600w"
+                    sizes="(min-width: 750px) calc((100vw - 10rem) / 4), calc(100vw - 4rem)"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                  >
+                  
+                  {% if product.images[1] %}
+                    <img
+                      src="{{ product.images[1] | image_url: width: 600 }}"
+                      alt="{{ product.images[1].alt | escape }}"
+                      class="product-card__image-hover"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              <div class="product-card__info">
+                <h3 class="product-card__title">{{ product.title }}</h3>
+                
+                <div class="product-card__price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="product-card__price-compare">
+                      {{ product.compare_at_price | money }}
+                    </span>
+                    <span class="product-card__price-sale">
+                      {{ product.price | money }}
+                    </span>
+                  {% else %}
+                    <span class="product-card__price-regular">
+                      {{ product.price | money }}
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+
+            <button class="product-card__quick-add button" data-product-id="{{ product.id }}">
+              Ajouter au panier
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_view_all %}
+        <div class="featured-collection__footer">
+          <a href="{{ collection.url }}" class="button button--secondary">
+            Voir tout
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      <p class="featured-collection__empty">
+        Aucun produit dans cette collection.
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection en vedette",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Produits en vedette"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Nombre de produits",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Afficher le bouton 'Voir tout'",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection en vedette"
+    }
+  ]
+}
+{% endschema %}

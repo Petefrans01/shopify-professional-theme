@@ -1,0 +1,220 @@
+{% comment %}
+  Section: Produit principal
+{% endcomment %}
+
+<div class="main-product" data-section-id="{{ section.id }}">
+  <div class="main-product__wrapper page-width">
+    <div class="main-product__media">
+      <div class="product-gallery">
+        {% if product.images.size > 0 %}
+          <div class="product-gallery__main">
+            <img
+              id="product-featured-image"
+              src="{{ product.featured_image | image_url: width: 1000 }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              data-zoom="{{ product.featured_image | image_url: width: 2000 }}"
+            >
+          </div>
+
+          {% if product.images.size > 1 %}
+            <div class="product-gallery__thumbnails">
+              {% for image in product.images %}
+                <button
+                  class="product-gallery__thumbnail {% if forloop.first %}active{% endif %}"
+                  data-image="{{ image | image_url: width: 1000 }}"
+                  data-zoom="{{ image | image_url: width: 2000 }}"
+                >
+                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}">
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="main-product__info">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'title' %}
+            <h1 class="main-product__title">{{ product.title }}</h1>
+
+          {% when 'price' %}
+            <div class="main-product__price" id="product-price">
+              {% if product.compare_at_price > product.price %}
+                <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                <span class="price-sale">{{ product.price | money }}</span>
+                <span class="price-badge">
+                  -{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%
+                </span>
+              {% else %}
+                <span class="price-regular">{{ product.price | money }}</span>
+              {% endif %}
+            </div>
+
+          {% when 'variant_picker' %}
+            {% unless product.has_only_default_variant %}
+              <div class="main-product__variants">
+                {% for option in product.options_with_values %}
+                  <div class="product-option">
+                    <label class="product-option__label">{{ option.name }}</label>
+                    <div class="product-option__values">
+                      {% for value in option.values %}
+                        <input
+                          type="radio"
+                          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                          name="options[{{ option.name }}]"
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}checked{% endif %}
+                        >
+                        <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                          {{ value }}
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endunless %}
+
+          {% when 'quantity_selector' %}
+            <div class="main-product__quantity">
+              <label for="quantity">Quantité</label>
+              <div class="quantity-selector">
+                <button type="button" class="quantity-selector__button" data-action="decrease">-</button>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="quantity-selector__input"
+                >
+                <button type="button" class="quantity-selector__button" data-action="increase">+</button>
+              </div>
+            </div>
+
+          {% when 'buy_buttons' %}
+            <div class="main-product__buttons">
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary button--full-width"
+                {% unless product.available %}disabled{% endunless %}
+              >
+                {% if product.available %}
+                  Ajouter au panier
+                {% else %}
+                  Épuisé
+                {% endif %}
+              </button>
+
+              {% if block.settings.show_dynamic_checkout %}
+                {{ form | payment_button }}
+              {% endif %}
+            </div>
+
+          {% when 'description' %}
+            {% if product.description != blank %}
+              <div class="main-product__description">
+                <h3>Description</h3>
+                {{ product.description }}
+              </div>
+            {% endif %}
+
+          {% when 'share' %}
+            <div class="main-product__share">
+              <button class="share-button">
+                Partager
+              </button>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Gestion des variantes
+  document.querySelectorAll('[name^="options"]').forEach(input => {
+    input.addEventListener('change', () => {
+      // Logique de sélection de variante
+    });
+  });
+
+  // Gestion de la quantité
+  document.querySelectorAll('.quantity-selector__button').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const input = e.target.parentElement.querySelector('input');
+      const currentValue = parseInt(input.value);
+      
+      if (e.target.dataset.action === 'increase') {
+        input.value = currentValue + 1;
+      } else if (e.target.dataset.action === 'decrease' && currentValue > 1) {
+        input.value = currentValue - 1;
+      }
+    });
+  });
+
+  // Galerie d'images
+  document.querySelectorAll('.product-gallery__thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', (e) => {
+      const mainImage = document.getElementById('product-featured-image');
+      mainImage.src = e.currentTarget.dataset.image;
+      
+      document.querySelectorAll('.product-gallery__thumbnail').forEach(t => t.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Produit principal",
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Titre",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Prix",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Sélecteur de variantes",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Sélecteur de quantité",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Boutons d'achat",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Afficher les boutons de paiement dynamique",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "Bouton de partage",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

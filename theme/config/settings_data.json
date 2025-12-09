@@ -1,0 +1,253 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Thème Pro",
+    "theme_version": "1.0.0",
+    "theme_author": "Votre Nom",
+    "theme_documentation_url": "https://votresite.com",
+    "theme_support_url": "https://votresite.com/support"
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Palette de couleurs"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Couleur primaire",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Couleur secondaire",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "colors_text",
+        "label": "Couleur du texte",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "colors_background",
+        "label": "Couleur de fond",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Polices"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Police des titres",
+        "default": "helvetica_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Police du corps de texte",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Taille de police de base",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Logo et Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Largeur du logo",
+        "default": 150
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Format recommandé: 32x32px PNG"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Largeur de page"
+      },
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "unit": "px",
+        "label": "Largeur maximale",
+        "default": 1200
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 1,
+        "max": 4,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "Espacement",
+        "default": 2
+      }
+    ]
+  },
+  {
+    "name": "Produits",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Grille de produits"
+      },
+      {
+        "type": "range",
+        "id": "products_per_row",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "label": "Produits par ligne",
+        "default": 4
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Afficher le vendeur",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quick_add",
+        "label": "Activer l'ajout rapide au panier",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_hover",
+        "label": "Activer l'effet de survol d'image",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Panier",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Type de panier",
+        "options": [
+          {
+            "value": "page",
+            "label": "Page"
+          },
+          {
+            "value": "drawer",
+            "label": "Tiroir latéral"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_notes",
+        "label": "Activer les notes de panier",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Comptes de réseaux sociaux"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://facebook.com/votrecompte"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://instagram.com/votrecompte"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https://twitter.com/votrecompte"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Optimisation pour les moteurs de recherche"
+      },
+      {
+        "type": "text",
+        "id": "seo_title",
+        "label": "Titre de la page d'accueil"
+      },
+      {
+        "type": "textarea",
+        "id": "seo_description",
+        "label": "Description de la page d'accueil"
+      },
+      {
+        "type": "image_picker",
+        "id": "seo_image",
+        "label": "Image de partage social"
+      }
+    ]
+  }
+]

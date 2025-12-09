@@ -1,0 +1,92 @@
+{% comment %}
+  Snippet: Meta tags pour SEO
+{% endcomment %}
+
+{% comment %} Title {% endcomment %}
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:type" content="website">
+
+{% if page_description %}
+  <meta property="og:description" content="{{ page_description }}">
+  <meta name="description" content="{{ page_description }}">
+{% endif %}
+
+{% comment %} Image {% endcomment %}
+{% if template contains 'product' %}
+  <meta property="og:type" content="product">
+  <meta property="og:price:amount" content="{{ product.price | money_without_currency }}">
+  <meta property="og:price:currency" content="{{ shop.currency }}">
+  
+  {% if product.featured_image %}
+    <meta property="og:image" content="http:{{ product.featured_image | image_url: width: 1200 }}">
+    <meta property="og:image:secure_url" content="https:{{ product.featured_image | image_url: width: 1200 }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1200">
+  {% endif %}
+{% elsif template contains 'collection' %}
+  {% if collection.image %}
+    <meta property="og:image" content="http:{{ collection.image | image_url: width: 1200 }}">
+    <meta property="og:image:secure_url" content="https:{{ collection.image | image_url: width: 1200 }}">
+  {% endif %}
+{% elsif settings.seo_image %}
+  <meta property="og:image" content="http:{{ settings.seo_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ settings.seo_image | image_url: width: 1200 }}">
+{% endif %}
+
+{% comment %} Twitter Card {% endcomment %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+
+{% if page_description %}
+  <meta name="twitter:description" content="{{ page_description }}">
+{% endif %}
+
+{% if template contains 'product' and product.featured_image %}
+  <meta name="twitter:image" content="https:{{ product.featured_image | image_url: width: 1200 }}">
+{% elsif settings.seo_image %}
+  <meta name="twitter:image" content="https:{{ settings.seo_image | image_url: width: 1200 }}">
+{% endif %}
+
+{% comment %} JSON-LD Structured Data {% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  "url": "{{ shop.url }}",
+  "logo": "{{ settings.logo | image_url: width: 500 }}"
+  {% if settings.social_facebook_link != blank or settings.social_instagram_link != blank %}
+    ,"sameAs": [
+      {% if settings.social_facebook_link != blank %}"{{ settings.social_facebook_link }}"{% endif %}
+      {% if settings.social_instagram_link != blank %},"{{ settings.social_instagram_link }}"{% endif %}
+      {% if settings.social_twitter_link != blank %},"{{ settings.social_twitter_link }}"{% endif %}
+    ]
+  {% endif %}
+}
+</script>
+
+{% if template contains 'product' %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  "image": "{{ product.featured_image | image_url: width: 1200 }}",
+  "description": "{{ product.description | strip_html | escape }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ product.vendor | escape }}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "{{ shop.currency }}",
+    "price": "{{ product.price | money_without_currency }}",
+    "availability": "{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "url": "{{ shop.url }}{{ product.url }}"
+  }
+}
+</script>
+{% endif %}

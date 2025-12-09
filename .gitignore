@@ -1,0 +1,25 @@
+# Fichiers et dossiers à ignorer
+node_modules/
+.DS_Store
+*.log
+.env
+.env.local
+config.yml
+
+# Fichiers Shopify CLI
+.shopify/
+
+# Fichiers de sauvegarde
+*.bak
+*.tmp
+*~
+
+# Fichiers IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Fichiers de test
+test/
+tests/
+*.test.js
